@@ -50,76 +50,51 @@ function thousandsWord(digit) {
 }
 
 function hundredsWord(digit) {
-    switch (digit) {
-        case 9:
-            return " nine hundred";
-        case 8:
-            return " eight hundred";
-        case 7:
-            return " seven hundred";
-        case 6:
-            return " six hundred";
-        case 5:
-            return " five hundred";
-        case 4:
-            return " four hundred";
-        case 3:
-            return " three hundred";
-        case 2:
-            return " two hundred";
-        case 1:
-            return " one hundred";
-        default:
-            return "";
-    }
+    const hundreds = [
+        "", 
+        " one hundred", 
+        " two hundred", 
+        " three hundred", 
+        " four hundred", 
+        " five hundred", 
+        " six hundred", 
+        " seven hundred", 
+        " eight hundred", 
+        " nine hundred"
+    ];
+    return hundreds[digit];
 }
 
 function tensWord(digit) {
-    switch (digit) {
-        case 9:
-            return " ninety";
-        case 8:
-            return " eighty";
-        case 7:
-            return " seventy";
-        case 6:
-            return " sixty";
-        case 5:
-            return " fifty";
-        case 4:
-            return " forty";
-        case 3:
-            return " thirty";
-        case 2:
-            return " twenty";
-        default:
-            return "";
-    }    
+    const tens = [
+        "", 
+        "", // values less than 20 are handled by a separate function
+        " twenty", 
+        " thirty", 
+        " forty",
+        " fifty", 
+        " sixty", 
+        " seventy", 
+        " eighty", 
+        " ninety"
+    ];
+    return tens[digit];
 }
 
 function singleDigitsWord(digit) {
-    switch (digit) {
-        case 9:
-            return " nine";
-        case 8:
-            return " eight";
-        case 7:
-            return " seven";
-        case 6:
-            return " six";
-        case 5:
-            return " five";
-        case 4:
-            return " four";
-        case 3:
-            return " three";
-        case 2:
-            return " two";
-        case 1:
-            return " one";
-        default:
-            return "";
-    }    
+    const oughts = [
+        "", 
+        " one", // values less than 20 are handled by a separate function
+        " two", 
+        " three", 
+        " four",
+        " five", 
+        " six", 
+        " seven", 
+        " eight", 
+        " nine"
+    ];
+    return oughts[digit];
 }
 
 function lessThanTwentyString(number) {
@@ -148,7 +123,6 @@ function lessThanTwentyString(number) {
             return " ten";
         default:
             return string =  singleDigitsWord(number % 10);
-        
     }
 }
 
