@@ -9,28 +9,27 @@ function generateArray(max) {
 function populatePage(max) {
     const array = generateArray(max);
     const paragraph = document.createElement("p");
-    let workingString = "";
-    for (let element of array) {
-        workingString += generateNumberWords(element);
-        workingString += ", "
-    }
-    workingString = workingString.slice(0, workingString.length - 2);
-    workingString += "."
-    paragraph.appendChild(document.createTextNode(workingString));
+    paragraph.appendChild(document.createTextNode(getStringOfAllNumbersAsWords(array)));
     document.body.appendChild(paragraph);
 }
 
-function generateNumberWords(number) {
+function getStringOfAllNumbersAsWords(array) {
     let workingString = "";
+    for (let element of array) {
+        workingString += generateNumberWords(element) + ", ";
+    }
+    workingString = workingString.slice(0, workingString.length - 2) + ".";
+    return workingString;
+}
 
+function generateNumberWords(number) {
     const thousandsDigit = floor(number, 1000);
     number -= thousandsDigit * 1000;
     const hundredsDigit = floor(number, 100);
     number -= hundredsDigit * 100;
     const lastTwoDigits = number;
     
-    workingString += thousandsWord(thousandsDigit);
-    workingString += hundredsWord(hundredsDigit);
+    let workingString = thousandsWord(thousandsDigit) + hundredsWord(hundredsDigit);
 
     if (lastTwoDigits < 20) {
         workingString += lessThanTwentyString(lastTwoDigits);
@@ -83,8 +82,8 @@ function tensWord(digit) {
 
 function singleDigitsWord(digit) {
     const oughts = [
-        "", 
-        " one", // values less than 20 are handled by a separate function
+        "", // zero is not printed
+        " one", 
         " two", 
         " three", 
         " four",
