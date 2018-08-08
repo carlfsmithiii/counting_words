@@ -23,20 +23,16 @@ function getStringOfAllNumbersAsWords(array) {
 }
 
 function generateNumberWords(number) {
-    const thousandsDigit = floor(number, 1000);
-    number -= thousandsDigit * 1000;
-    const hundredsDigit = floor(number, 100);
-    number -= hundredsDigit * 100;
-    const lastTwoDigits = number;
+    const [thousandsDigit, hundredsDigit, tensDigit, onesDigit] = [...((number).toString().padStart(4, "0"))];
     
     let workingString = thousandsWord(thousandsDigit) + hundredsWord(hundredsDigit);
 
-    if (lastTwoDigits < 20) {
-        workingString += lessThanTwentyString(lastTwoDigits);
+    if (tensDigit == 1) {
+        workingString += lessThanTwentyString(tensDigit, onesDigit);
     } else {
-        workingString += tensWord(Math.floor(lastTwoDigits / 10));
-        workingString += singleDigitsWord(lastTwoDigits % 10);
+        workingString += tensWord(tensDigit) + singleDigitsWord(onesDigit);
     }
+    
     return workingString;
 }
 
@@ -96,10 +92,8 @@ function singleDigitsWord(digit) {
     return oughts[digit];
 }
 
-function lessThanTwentyString(number) {
-    switch (number) {
-        case 20:
-            return " twenty";
+function lessThanTwentyString(tensDigit, onesDigit) {
+    switch (Number(tensDigit) * 10 + Number(onesDigit)) {
         case 19:
             return " nineteen";
         case 18:
@@ -121,12 +115,8 @@ function lessThanTwentyString(number) {
         case 10:
             return " ten";
         default:
-            return string =  singleDigitsWord(number % 10);
+            return string =  singleDigitsWord(onesDigit);
     }
-}
-
-function floor(number, divisor) {
-    return Math.floor(number / divisor);
 }
 
 populatePage(1000);
